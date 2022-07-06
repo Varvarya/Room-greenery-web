@@ -1,0 +1,34 @@
+{
+  "extends": "airbnb",
+  "plugins": [
+    "react"
+  ],
+  "ignorePatterns": [
+    "/src/*.js",
+    "/.js"
+  ],
+  "rules": {
+    "import/prefer-default-export": 0,
+    "linebreak-style": 0,
+    "default-param-last": 0,
+    "no-underscore-dangle": 0,
+    "no-unused-vars": 0,
+    "react/forbid-prop-types": 0,
+    "func-style": [
+      "error",
+      "declaration",
+      {
+        "allowArrowFunctions": true
+      }
+    ],
+    "react/function-component-definition": [
+      2,
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "react/no-array-index-key": 0,
+    " function-paren-newline ": 0
+  }
+}

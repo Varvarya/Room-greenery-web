@@ -1,0 +1,86 @@
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+  loginContainer: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    flex: 1,
+    maxWidth: '400px',
+    backgroundColor: theme.palette.primary.main,
+    borderRadius: '32px',
+    boxShadow: '16px 16px 45px #668d54, -16px -16px 45px #98d37, 35px 35px 70px #bfbfb2, -35px -35px 70px #ffffff',
+    fontWeight: 300,
+    color: theme.palette.text.primary,
+    fontFamily: 'Comfortaa',
+    padding: '32px 0px',
+  },
+  header: {
+    fontSize: 32,
+    marginBottom: '10px',
+    fontWeight: 600,
+    color: theme.palette.text.primary,
+    fontFamily: 'Comfortaa',
+  },
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    backgroundColor: theme.palette.primary.main,
+    color: theme.palette.text.primary,
+    fontFamily: 'Comfortaa',
+  },
+  inputContainer: {
+    display: 'flex',
+    margin: '8px 0px',
+    padding: '8px 0px',
+    fontFamily: 'Comfortaa',
+    backgroundColor: '#ffffff',
+  },
+  input: {
+    borderRadius: '4px',
+    padding: '-10px',
+    boxShadow: 'inset 5px 5px 10px #d1d1c2, inset -5px -5px 10px #ffffff',
+    backgroundColor: theme.palette.primary.light,
+    color: theme.palette.text.primary,
+    outline: 'none',
+    fontFamily: 'Comfortaa',
+  },
+  label: {
+    color: theme.palette.text.primary,
+    fontFamily: 'Comfortaa',
+  },
+  button: {
+    display: 'flex',
+    flex: 1,
+    alignSelf: 'stretch',
+    marginTop: '12px',
+    background: 'linear-gradient(145deg, #fffffe, #e6e6d5)',
+    boxShadow: '8px 8px 23px #bfbfb2, -8px -8px 23px #ffffff',
+    padding: '8px',
+    borderRadius: '8px',
+    color: theme.palette.text.primary,
+    fontSize: '20px',
+    fontFamily: 'Comfortaa',
+  },
+  redirectContainer: {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    margin: '10px 0px 30px 0px',
+  },
+  redirectText: {
+    fontWeight: 300,
+    color: theme.palette.text.primary,
+    margin: '0px',
+    fontFamily: 'Comfortaa',
+  },
+  link: {
+    fontWeight: 300,
+    color: theme.palette.text.link,
+    fontFamily: 'Comfortaa',
+  },
+}));
+
+export default useStyles;
