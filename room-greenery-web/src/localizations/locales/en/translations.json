@@ -1,0 +1,100 @@
+{
+  "login": {
+    "login": "Login",
+    "name": "Name",
+    "surname": "Surname",
+    "email": "Email",
+    "password": "Password",
+    "submit": "Submit",
+    "do_not_have_account":  "Do not have an account?",
+    "register_here": "Register here"
+  },
+  "registration": {
+    "header": "Sign up",
+    "name": "Name",
+    "surname": "Surname",
+    "email": "Email",
+    "password": "Password",
+    "organization": "Organization",
+    "role": "Role",
+    "submit": "Submit",
+    "have_account":  "Aleady have an account?",
+    "login_here": "Login here"
+  },
+  "home": {
+    "header": "Room Greenery",
+    "text": "This app was created so that you can conveniently manage your plants without hiring an extra person or wasting your own time"
+  },
+  "organizations": {
+    "organization": "Organizations"
+  },
+  "users": {
+    "user": "Users",
+    "find": "Find user"
+  },
+  "devices": {
+    "device": "Devices",
+    "taken": "Taken",
+    "available": "Available"
+  },
+  "table": {
+    "id": "ID",
+    "title": "Title",
+    "name": "Name",
+    "surname": "Surname",
+    "email": "Email",
+    "role_id": "Role ID",
+    "role": "Role",
+    "organization_id": "Organization ID",
+    "organization": "Organization",
+    "plant": "Plant",
+    "target": "Target",
+    "current": "Current",
+    "is_working": "Working",
+
+    "add": "Add",
+    "edit": "Edit",
+    "rows_per_page": "Rows per page:",
+    "from": "from",
+
+    "organizations": "Organization",
+    "users": "User",
+    "devices": "Device"
+  },
+  "profile": {
+    "greeting": "Hello",
+    "id": "ID",
+    "title": "Title",
+    "name": "Name",
+    "surname": "Surname",
+    "email": "Email",
+    "role_id": "Role ID",
+    "role": "Role",
+    "organization_id": "Organization ID",
+    "organization": "Organization"
+  },
+  "database": {
+    "header": "Backups",
+    "create": "Create",
+    "restore": "Restore"
+  },
+  "statistics": {
+    "header": "Statistics",
+    "co2_level": "CO2 level",
+    "ground_humidity": "Ground humidity",
+    "air_humidity": "Air humidity",
+    "air_temperature": "Air temp",
+    "light_level": "Light level"
+  },
+  "navbar": {
+    "Organizations": "Organizations",
+    "Users": "Users",
+    "Devices": "Devices",
+    "Statistics": "Statistics"
+  },
+  "menu": {
+    "profile": "Profile",
+    "logout": "Log out",
+    "database": "Database"
+  }
+}

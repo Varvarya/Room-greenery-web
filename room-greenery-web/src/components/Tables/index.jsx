@@ -3,9 +3,12 @@ import { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card, Checkbox, Paper, Table, TableCell, TableContainer,
-  TablePagination, TableRow, TableBody, Button,
+  TablePagination, TableRow, TableBody, Button, Icon,
 } from '@material-ui/core';
 import { AddCircleOutlined, EditOutlined } from '@mui/icons-material';
+import PlayCircleFilledIcon from '@mui/icons-material/PlayCircleFilled';
+import StopCircleIcon from '@mui/icons-material/StopCircle';
+import { useTranslation } from 'react-i18next';
 import TableHeader from './components/tableHead';
 import TableToolbar from './components/tableToolbar';
 import FormDialog from './components/dialog';
@@ -28,14 +31,15 @@ function getComparator(order, orderBy) {
 }
 
 const CustomTable = ({
-  data, headCells, title, fields, addRow, editRow, deleteRow,
+  data, headCells, title, fields, addRow, editRow, deleteRow, defaultRowsPerPage,
 }) => {
+  const { t, i18n } = useTranslation();
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('id');
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [rowsPerPage, setRowsPerPage] = React.useState(defaultRowsPerPage || 5);
   const [open, setOpen] = React.useState(false);
   const [add, setAdd] = useState(true);
   const [obj, setObj] = useState({});
@@ -91,6 +95,7 @@ const CustomTable = ({
   };
 
   const handleChangePage = (event, newPage) => {
+    console.log(newPage);
     setPage(newPage);
   };
 
@@ -108,6 +113,32 @@ const CustomTable = ({
       </ul>
     </TableCell>
   );
+  const printObject = (object) => (
+    <TableCell>
+      <ul>
+        {Object.entries(object).map(([key, value]) => <li>{`${key}: ${value}`}</li>)}
+      </ul>
+    </TableCell>
+  );
+
+  const printBool = (boolean) => (
+    <TableCell>
+      {boolean
+        ? <PlayCircleFilledIcon color="success" />
+        : <StopCircleIcon color="error" />}
+    </TableCell>
+  );
+
+  const printInline = (e) => {
+    if (Array.isArray(e)) {
+      return printArray(e);
+    } if (typeof e === 'object') {
+      return printObject(e);
+    } if (typeof e === 'boolean') {
+      return printBool(e);
+    }
+    return null;
+  };
 
   const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - data.length) : 0;
 
@@ -135,7 +166,7 @@ const CustomTable = ({
                 onRequestSort={handleRequestSort}
                 rowCount={data.length}
               />
-              <TableBody>
+              <TableBody className={classes.tableRow}>
                 {data.sort(getComparator(order, orderBy))
                   .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
@@ -151,8 +182,12 @@ const CustomTable = ({
                         tabIndex={-1}
                         key={row.id}
                         selected={isItemSelected}
+                        className={classes.tableRow}
                       >
-                        <TableCell padding="checkbox">
+                        <TableCell
+                          padding="checkbox"
+                          className={classes.tableRow}
+                        >
                           <Checkbox
                             color="secondary"
                             checked={isItemSelected}
@@ -161,9 +196,10 @@ const CustomTable = ({
                             }}
                           />
                         </TableCell>
-                        {Object.values(row).map((e) => ((Array.isArray(e))
-                          ? printArray(e) : (<TableCell align="left">{e}</TableCell>)))}
-                        <TableCell>
+                        {Object.values(row).map((e) => (
+                          (Array.isArray(e) || (typeof e === 'object' && e !== null && e !== undefined) || typeof e === 'boolean')
+                            ? printInline(e) : (<TableCell align="left" className={classes.tableRow}>{e}</TableCell>)))}
+                        <TableCell className={classes.tableRow}>
                           <Button
                             className={classes.button}
                             onClick={() => handleClickOpenEdit(row)}
@@ -174,8 +210,8 @@ const CustomTable = ({
                       </TableRow>
                     );
                   })}
-                <TableRow>
-                  <TableCell sx={{ textAlign: 'center' }} colSpan={headCells.length + 2}>
+                <TableRow className={classes.tableRow}>
+                  <TableCell className={classes.tableRow} sx={{ textAlign: 'center' }} colSpan={headCells.length + 2}>
                     <Button className={classes.button} onClick={handleClickOpenAdd}>
                       <AddCircleOutlined sx={{ color: '#7FB069' }} />
                     </Button>
@@ -186,21 +222,25 @@ const CustomTable = ({
                   style={{
                     height: (53) * emptyRows,
                   }}
+                  className={classes.tableRow}
                 >
-                  <TableCell colSpan={6} />
+                  <TableCell colSpan={6} className={classes.tableRow} />
                 </TableRow>
                 )}
               </TableBody>
             </Table>
           </TableContainer>
           <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
+            className={classes.tableRow}
+            rowsPerPageOptions={[1, 2, 3, 5, 10, 25]}
             component="div"
             count={data.length}
             rowsPerPage={rowsPerPage}
             page={page}
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
+            labelRowsPerPage={t('table.rows_per_page')}
+            labelDisplayedRows={({ from, to, count }) => ` ${from}-${to} ${t('table.from')} ${count}`}
           />
         </Paper>
       </Card>
@@ -210,7 +250,8 @@ const CustomTable = ({
           open={open}
           handleClose={handleClose}
           title={title}
-          text={add ? `Add ${title.toLowerCase()}` : `Edit ${title.toLowerCase()}`}
+          text={add ? `${t('table.add')} ${t(`table.${title.toLowerCase()}`)}`
+            : `${t('table.edit')} ${t(`table.${title.toLowerCase()}`)}`}
           fields={fields}
           handleConfirm={add ? addRow : editRow}
         />
@@ -227,6 +268,11 @@ CustomTable.propTypes = {
   addRow: PropTypes.func.isRequired,
   editRow: PropTypes.func.isRequired,
   deleteRow: PropTypes.func.isRequired,
+  defaultRowsPerPage: PropTypes.number,
+};
+
+CustomTable.defaultProps = {
+  defaultRowsPerPage: 5,
 };
 
 export default CustomTable;

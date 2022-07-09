@@ -10,14 +10,14 @@ import {
   DialogTitle,
   TextField,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
 import useStyles from '../styles';
 
 const FormDialog = ({
   initialValues, open, handleClose, title, text, confirmText, fields, handleConfirm,
 }) => {
   const [obj, setObject] = useState(initialValues);
-
-  console.log(fields);
+  const { t, i18n } = useTranslation();
 
   const classes = useStyles();
 
@@ -31,7 +31,7 @@ const FormDialog = ({
         {fields.map((e) => (
           <TextField
             className={classes.input}
-            name={e.label}
+            name={t(`table.${e.label.toLowerCase()}`)}
             variant="filled"
             size="small"
             inputProps={{
@@ -45,7 +45,7 @@ const FormDialog = ({
             value={obj[(e.id).toLowerCase()]}
             onChange={(event) => setObject({ ...obj, [e.id]: event.target.value })}
             id={e.id}
-            label={e.label}
+            label={t(`table.${e.label.toLowerCase()}`)}
             type="text"
             fullWidth
           />

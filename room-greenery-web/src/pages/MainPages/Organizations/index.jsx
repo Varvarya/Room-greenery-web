@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Card, CircularProgress } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import useStyles from './styles';
 import Table from '../../../components/Tables';
 import {
@@ -20,18 +21,16 @@ const Organizations = ({
   loading,
 }) => {
   const classes = useStyles();
+  const { t, i18n } = useTranslation();
 
   useEffect(() => {
     getOrganizations();
-    console.log(organizations);
-    console.log(loading);
   }, []);
 
   let entries;
 
   if (organizations && organizations[0]) {
     entries = Object.entries(organizations[0]);
-    console.log(entries);
   }
   if (!entries) {
     entries = [
@@ -44,8 +43,6 @@ const Organizations = ({
     disablePadding: true,
     label: k.charAt(0).toUpperCase() + k.slice(1),
   }));
-
-  console.log('Organizations');
 
   return (
     <div
@@ -62,7 +59,7 @@ const Organizations = ({
               editRow={updateOrganization}
               fields={headCells.slice(1, headCells.length)}
               headCells={headCells}
-              title="Organizations"
+              title={t('organizations.organization')}
             />
           )}
       </Card>

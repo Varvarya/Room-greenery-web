@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import {
   Button, Paper, TextField, Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import useStyles from '../styles';
 
 const LoginForm = ({
@@ -14,15 +15,16 @@ const LoginForm = ({
   };
 
   const classes = useStyles();
+  const { t, i18n } = useTranslation();
 
-  const inputField = (label, value, onEdit, error) => (
+  const inputField = (label, key, value, onEdit, error) => (
     <div className={classes.inputContainer}>
       <TextField
         className={classes.input}
         label={label}
         name={label}
         value={value}
-        onChange={(event) => onEdit(label, event.target.value)}
+        onChange={(event) => onEdit(key, event.target.value)}
         helperText={error}
         error={error !== undefined}
         variant="filled"
@@ -39,25 +41,35 @@ const LoginForm = ({
     </div>
   );
 
+  const redirect = () => (
+    <div className={classes.redirectContainer}>
+      <p className={classes.redirectText}>
+        {`${t('login.do_not_have_account')}`}
+      </p>
+      <a className={classes.link} href="/auth/registration">{t('login.register_here')}</a>
+    </div>
+  );
+
   return (
     <Paper
       elevation={16}
       className={classes.loginContainer}
     >
-      <Typography className={classes.header}>Login</Typography>
+      <Typography className={classes.header}>{t('login.login')}</Typography>
       <div className={classes.form}>
-        {inputField('Name', values.name, onChange, errors.name)}
-        {inputField('Surname', values.surname, onChange, errors.surname)}
-        {inputField('Email', values.email, onChange, errors.email)}
-        {inputField('Password', values.password, onChange, errors.password)}
+        {inputField(`${t('login.name')}`, 'name', values.name, onChange, errors.name)}
+        {inputField(`${t('login.surname')}`, 'Surname', values.surname, onChange, errors.surname)}
+        {inputField(`${t('login.email')}`, 'Email', values.email, onChange, errors.email)}
+        {inputField(`${t('login.password')}`, 'Password', values.password, onChange, errors.password)}
         <Button
           className={classes.button}
           type="submit"
           onClick={onSubmit}
           variant="contained"
         >
-          Submit
+          {t('login.submit')}
         </Button>
+        {redirect()}
       </div>
     </Paper>
   );

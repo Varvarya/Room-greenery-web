@@ -9,10 +9,10 @@ import useStyles from './styles';
 import { ValidateUserInfo } from '../../utils/validateUserInfo';
 import RegistrationForm from '../../components/authForms/registrationForm';
 import ToastMessage from '../../components/toast';
-import { authSuccess } from '../../store/modules/auth/types';
-import { loginUser } from '../../store/modules/auth/actionsCreator';
+import { authSuccess, registerSuccess } from '../../store/modules/auth/types';
+import { loginUser, registerUser } from '../../store/modules/auth/actionsCreator';
 
-const AuthPage = ({ login }) => {
+const AuthPage = ({ login, register }) => {
   const classes = useStyles();
   const history = useHistory();
 
@@ -36,14 +36,26 @@ const AuthPage = ({ login }) => {
     setErrors({});
   };
 
-  const onSubmit = () => {
-    console.log('login');
-    console.log(errors);
+  const loginFunc = () => {
     if (Object.keys(errors).length === 0) {
       login(values).then((res) => {
         console.log(res);
         if (res.type === authSuccess) {
-          history.push('/');
+          history.push('/home');
+        } else if (res.payload.error) {
+          setAlertState({ type: 'error', message: 'Something went wrong, try again', isVisible: true });
+        }
+      });
+    }
+  };
+
+  const addUser = () => {
+    console.log(errors);
+    if (Object.keys(errors).length === 0) {
+      register(values).then((res) => {
+        console.log(res);
+        if (res.type === registerSuccess) {
+          history.push('/home');
         } else if (res.payload.error) {
           setAlertState({ type: 'error', message: 'Something went wrong, try again', isVisible: true });
         }
@@ -65,7 +77,7 @@ const AuthPage = ({ login }) => {
             values={values}
             error={errors}
             onChange={onChange}
-            login={onSubmit}
+            login={loginFunc}
           />
         </Route>
         <Route path={`${path}/registration`}>
@@ -73,6 +85,7 @@ const AuthPage = ({ login }) => {
             values={values}
             error={errors}
             onChange={onChange}
+            register={addUser}
           />
         </Route>
 
@@ -83,6 +96,7 @@ const AuthPage = ({ login }) => {
 
 AuthPage.propTypes = {
   login: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -92,4 +106,5 @@ const mapStateToProps = (state) => ({
 
 export default connect(mapStateToProps, {
   login: loginUser,
+  register: registerUser,
 })(AuthPage);

@@ -1,44 +1,44 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
-  Accordion, AccordionDetails, AccordionSummary, Card, CircularProgress, Typography,
+  Button, ButtonGroup, Card, CircularProgress, Typography,
 } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { useTranslation } from 'react-i18next';
 import useStyles from './styles';
 import Table from '../../../components/Tables';
 import {
-  getAllOrganizations,
-  addOrganization as addNewOrganization,
-  updateOrganization as updateOrganizationData,
-  deleteOrganizationById,
-} from '../../../store/modules/organizations/actionsCreator';
+  addDevice,
+  deleteDeviceById,
+  getByOrganization,
+  updateDeviceById,
+} from '../../../store/modules/devices/actionsCreator';
 
-const Organizations = ({
-  getOrganizations,
-  addOrganization,
-  deleteOrganization,
-  updateOrganization,
-  organizations,
+const Devices = ({
+  devices,
   loading,
+  getDevicesByOrganization,
+  addNewDevice,
+  deleteDevice,
+  updateDevice,
 }) => {
   const classes = useStyles();
+  const { t, i18n } = useTranslation();
+  const [activeBar, setActiveBar] = useState('taken');
 
   useEffect(() => {
-    getOrganizations();
-    console.log(organizations);
-    console.log(loading);
+    getDevicesByOrganization();
   }, []);
 
   let entries;
 
-  if (organizations && organizations[0]) {
-    entries = Object.entries(organizations[0]);
-    console.log(entries);
+  if (devices && devices[activeBar] && devices[activeBar][0]) {
+    entries = Object.entries(devices[activeBar][0]);
   }
   if (!entries) {
     entries = [
       ['id', ''],
-      ['title', '']];
+      ['current_params', '']];
   }
   const headCells = entries.map(([k, v]) => ({
     id: k,
@@ -47,53 +47,64 @@ const Organizations = ({
     label: k.charAt(0).toUpperCase() + k.slice(1),
   }));
 
-  console.log('Organizations');
+  const handleClick = (event) => {
+    setActiveBar(event.currentTarget.id);
+  };
 
   return (
     <div
       className={classes.content}
     >
       <Card className={classes.card}>
+        <ButtonGroup variant="contained" color="secondary" className={classes.buttons}>
+          <Button className={classes.button} id="taken" onClick={handleClick}>{t('devices.taken')}</Button>
+          <Button className={classes.button} id="available" onClick={handleClick}>{t('devices.available')}</Button>
+        </ButtonGroup>
         {loading
           ? <CircularProgress color="secondary" />
           : (
-            organizations.map((org) => (
-              <Accordion>
-                <AccordionSummary>
-                  <Typography>{org.title}</Typography>
-                </AccordionSummary>
-                <AccordionDetails />
-              </Accordion>
-            ))
+            <Table
+              addRow={addNewDevice}
+              data={devices[activeBar]}
+              deleteRow={deleteDevice}
+              editRow={updateDevice}
+              fields={headCells.slice(1, headCells.length - 4)}
+              headCells={headCells}
+              title={t('devices.device')}
+              defaultRowsPerPage={1}
+            />
           )}
       </Card>
     </div>
   );
 };
 
-Organizations.propTypes = {
-  getOrganizations: PropTypes.func.isRequired,
-  addOrganization: PropTypes.func.isRequired,
-  deleteOrganization: PropTypes.func.isRequired,
-  updateOrganization: PropTypes.func.isRequired,
-  organizations: PropTypes.arrayOf(PropTypes.shape()),
+Devices.propTypes = {
+  devices: PropTypes.shape({
+    taken: PropTypes.arrayOf(PropTypes.shape()),
+    available: PropTypes.arrayOf(PropTypes.shape()),
+  }),
   loading: PropTypes.bool,
+  getDevicesByOrganization: PropTypes.func.isRequired,
+  addNewDevice: PropTypes.func.isRequired,
+  deleteDevice: PropTypes.func.isRequired,
+  updateDevice: PropTypes.func.isRequired,
 };
 
-Organizations.defaultProps = {
-  organizations: [],
+Devices.defaultProps = {
+  devices: [],
   loading: false,
 };
 
 const mapStateToProps = (state) => ({
-  actionErrors: state.organizations.error,
-  loading: state.organizations.loading,
-  organizations: state.organizations.organizations,
+  actionErrors: state.devices.error,
+  loading: state.devices.loading,
+  devices: state.devices.devices,
 });
 
 export default connect(mapStateToProps, {
-  getOrganizations: getAllOrganizations,
-  addOrganization: addNewOrganization,
-  deleteOrganization: deleteOrganizationById,
-  updateOrganization: updateOrganizationData,
-})(Organizations);
+  getDevicesByOrganization: getByOrganization,
+  addNewDevice: addDevice,
+  deleteDevice: deleteDeviceById,
+  updateDevice: updateDeviceById,
+})(Devices);

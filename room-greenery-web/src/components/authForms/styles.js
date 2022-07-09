@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
     padding: '8px 0px',
     fontFamily: 'Comfortaa',
     backgroundColor: '#ffffff',
+    flexDirection: 'column',
   },
   input: {
     borderRadius: '4px',

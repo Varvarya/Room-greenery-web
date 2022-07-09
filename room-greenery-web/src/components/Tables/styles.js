@@ -24,6 +24,9 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.primary.background,
     back: 0.3,
   },
+  tableRow: {
+    fontFamily: 'Comfortaa',
+  },
 }));
 
 export default useStyles;

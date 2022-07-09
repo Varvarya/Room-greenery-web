@@ -7,6 +7,8 @@ import {Provider} from "react-redux";
 import store from "./store";
 import { createTheme, ThemeProvider } from '@material-ui/core/styles';
 import {BrowserRouter} from "react-router-dom";
+import './i18n'
+import i18n from "./i18n";
 
 const customTheme = createTheme(
     {
@@ -58,7 +60,7 @@ ReactDOM.render(
         <Provider store={store}>
             <ThemeProvider theme={customTheme}>
                 <BrowserRouter>
-                    <App />
+                        <App />
                 </BrowserRouter>
             </ThemeProvider>
         </Provider>,

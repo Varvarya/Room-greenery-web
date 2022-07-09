@@ -6,6 +6,7 @@ import {
   authSuccess,
   authFailed,
 } from './types';
+import { roleIds } from '../../../consts';
 
 export const initialState = {
   loading: false,
@@ -24,6 +25,8 @@ const actionHandler = (state, action) => {
     case authSuccess:
       // eslint-disable-next-line no-undef
       localStorage.setItem('token', action.payload.data.access_token);
+      // eslint-disable-next-line no-undef
+      localStorage.setItem('role', roleIds[action.payload.data.role_id]);
       return {
         ...state, loading: false, user: action.payload.data, error: '',
       };

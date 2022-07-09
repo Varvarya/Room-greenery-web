@@ -5,6 +5,11 @@ import ResponsiveAppBar from '../../components/navbar';
 
 import Home from './home';
 import Organizations from '../MainPages/Organizations';
+import Devices from '../MainPages/Devices';
+import Users from '../MainPages/Users';
+import Profile from '../MainPages/Profile';
+import Database from '../MainPages/Database';
+import Statistics from '../MainPages/Statistics';
 
 const Main = () => {
   const classes = useStyles();
@@ -21,6 +26,21 @@ const Main = () => {
         </Route>
         <Route exact path="/organizations">
           <Organizations />
+        </Route>
+        <Route exact path="/devices">
+          <Devices />
+        </Route>
+        <Route exact path="/users">
+          <Users />
+        </Route>
+        <Route exact path="/profile">
+          <Profile />
+        </Route>
+        <Route exact path="/database">
+          <Database />
+        </Route>
+        <Route exact path="/statistics">
+          <Statistics />
         </Route>
       </Switch>
     </div>

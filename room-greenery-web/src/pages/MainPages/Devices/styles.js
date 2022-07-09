@@ -1,13 +1,6 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    display: 'flex',
-    flex: 1,
-    height: '100vh',
-    width: '100vw',
-    fontFamily: 'Comfortaa',
-  },
   content: {
     display: 'flex',
     flex: 1,
@@ -17,9 +10,6 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '70px',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  navbar: {
-    background: theme.palette.primary.background,
   },
   card: {
     display: 'flex',
@@ -31,7 +21,23 @@ const useStyles = makeStyles((theme) => ({
     background: 'linear-gradient(120deg, rgba(255, 255, 255, 0.10), rgba(255, 255, 255, 0.40), 50%, rgba(255, 255, 255, 0.10))',
     boxShadow: '0 0 10px 1px rgba(0, 0, 0, 0.25)',
     padding: '30px',
+    alignItems: 'stretch',
+    justifyContent: 'stretch',
+  },
+  buttons: {
+    display: 'flex',
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  button: {
+    display: 'flex',
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: '4px',
+    fontFamily: 'Comfortaa',
+    fontWeight: 600,
+    fontSize: '24px',
   },
   image: {
     display: 'flex',

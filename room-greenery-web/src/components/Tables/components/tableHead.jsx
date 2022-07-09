@@ -4,18 +4,23 @@ import { visuallyHidden } from '@mui/utils';
 import {
   Box, Checkbox, TableCell, TableHead, TableRow, TableSortLabel,
 } from '@material-ui/core';
+import { useTranslation } from 'react-i18next';
+import useStyles from '../styles';
 
 const TableHeader = ({
   headCells, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort,
 }) => {
+  const { t, i18n } = useTranslation();
+  const classes = useStyles();
+
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
 
   return (
     <TableHead>
-      <TableRow>
-        <TableCell padding="checkbox">
+      <TableRow className={classes.tableRow}>
+        <TableCell padding="checkbox" className={classes.tableRow}>
           <Checkbox
             color="secondary"
             indeterminate={numSelected > 0 && numSelected < rowCount}
@@ -32,13 +37,14 @@ const TableHeader = ({
             align={headCell.numeric ? 'right' : 'left'}
             padding={headCell.disablePadding ? 'none' : 'normal'}
             sortDirection={orderBy === headCell.id ? order : false}
+            className={classes.tableRow}
           >
             <TableSortLabel
               active={orderBy === headCell.id}
               direction={orderBy === headCell.id ? order : 'asc'}
               onClick={createSortHandler(headCell.id)}
             >
-              {headCell.label}
+              {t(`table.${headCell.label.toLowerCase()}`)}
               {orderBy === headCell.id ? (
                 <Box component="span" sx={visuallyHidden}>
                   {order === 'desc' ? 'sorted descending' : 'sorted ascending'}

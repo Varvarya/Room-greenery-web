@@ -1,0 +1,100 @@
+{
+  "login": {
+    "login": "Вхід",
+    "name": "Ім'я",
+    "surname": "Прізвище",
+    "email": "Електронна пошта",
+    "password": "Пароль",
+    "submit": "Підтвердити",
+    "do_not_have_account":  "Не маєте облікового запису?",
+    "register_here": "Зареєструватися"
+  },
+  "registration": {
+    "header": "Sign up",
+    "name": "Ім'я",
+    "surname": "Прізвище",
+    "email": "Електронна пошта",
+    "password": "Пароль",
+    "organization": "Організація",
+    "role": "Роль",
+    "submit": "Підтвердити",
+    "have_account":  "Вже маєте обліковий запис?",
+    "login_here": "Увійти тут"
+  },
+  "home": {
+    "header": "Озеленення - це просто",
+    "text": "Цей сервіс був створенний для того, щоб вам було комфортно та швидко створювати найкращі умови для зростання ваших рослин, без витрат особистого часу та винаймання спеціальних осіб"
+  },
+  "organizations": {
+    "organization": "Організації"
+  },
+  "users": {
+    "user": "Користувачі",
+    "find": "Знайти користувача"
+  },
+  "devices": {
+    "device": "Пристрої",
+    "taken": "Зайняті",
+    "available": "Вільні"
+  },
+  "table": {
+    "id": "Ідентифікатор",
+    "title": "Назва",
+    "name": "Ім'я",
+    "surname": "Прізвище",
+    "email": "Електронна пошта",
+    "role_id": "ID ролі",
+    "role": "Роль",
+    "organization_id": "ID Організації",
+    "organization": "Organization",
+    "plant": "Рослина",
+    "target": "Ціль",
+    "current": "Поточні",
+    "is_working": "Працює",
+
+    "add": "Додати",
+    "edit": "Редагувати",
+    "rows_per_page": "Рядків на сторінці:",
+    "from": "з",
+
+    "organizations": "Організацію",
+    "users": "Користувача",
+    "devices": "Пристрій"
+  },
+  "profile": {
+    "greeting": "Привіт",
+    "id": "ID",
+    "title": "Назва",
+    "name": "Ім'я",
+    "surname": "Прізвище",
+    "email": "Ел. пошта",
+    "role_id": "ID ролі",
+    "role": "Роль",
+    "organization_id": "ID організації",
+    "organization": "Організація"
+  },
+  "database": {
+    "header": "Збереженні бд",
+    "create": "Створити",
+    "restore": "Завантажити"
+  },
+  "statistics": {
+    "header": "Статистика",
+    "co2_level": "Рівень CO2",
+    "ground_humidity": "Вологість ґрунту",
+    "air_humidity": "Вологість повітря",
+    "air_temperature": "Температура повітря",
+    "light_level": "Рівень освітлення"
+  },
+  "navbar": {
+    "Organizations": "Організації",
+    "Users": "Користувачі",
+    "Devices": "Пристрої",
+    "Statistics": "Статистика"
+  },
+  "menu": {
+    "profile": "Профіль",
+    "logout": "Вийти",
+    "database": "Керування бд"
+  }
+}
